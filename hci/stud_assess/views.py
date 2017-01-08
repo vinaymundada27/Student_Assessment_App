@@ -1,9 +1,21 @@
+from django.contrib.auth import views
 from django.shortcuts import render
 from django.http import HttpResponse
 from .models import Question
 from django.template import loader
 
+
 # Create your views here.
+
+# def teacher_login(request):
+#     template_response = views.login(request),
+#     # Do something with 'template_response'
+#     return template_response
+
+
+def home(request):
+    template = loader.get_template('stud_assess/home.html')
+    return HttpResponse(template.render())
 
 
 def index(request):
