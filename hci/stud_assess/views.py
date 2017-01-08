@@ -1,7 +1,7 @@
 from django.contrib.auth import views
 from django.shortcuts import render
 from django.http import HttpResponse
-from .models import Question
+from .models import Student
 from django.template import loader
 
 
@@ -11,6 +11,10 @@ from django.template import loader
 #     template_response = views.login(request),
 #     # Do something with 'template_response'
 #     return template_response
+
+# def teacher_login(request):
+#     template = loader.get_template('stud_assess/teacher_login.html')
+#     return HttpResponse(template.render())
 
 
 def home(request):
