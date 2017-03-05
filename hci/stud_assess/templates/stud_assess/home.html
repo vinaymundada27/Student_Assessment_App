@@ -1,55 +1,71 @@
-{% block content %}
+{% extends 'stud_assess/base.html' %}
+{% load staticfiles %}
 
-{% if form.errors %}
-<p>Your username and password didn't match. Please try again.</p>
+{% block home %}
+
+{%if not user.is_authenticated %}
+    <h1 style="color: red;"> Please Login First </h1>
 {% endif %}
 
-{% if next %}
-    {% if user.is_authenticated %}
-    <p>Your account doesn't have access to this page. To proceed,
-    please login with an account that has access.</p>
-    {% else %}
-    <p>Please login to see this page.</p>
-    {% endif %}
-{% endif %}
-
+    
 <head>
-    <meta charset="UTF-8">
-    <title>Student Assessment Tool</title>
-    {% load static %}
-    <link rel="stylesheet" href="{% static "stud_assess/css/style.css" %}" />
+    <!-- Bootstrap Core CSS -->
+    <!-- <link href="{% static 'stud_assess/css/bootstrap.min.css' %}" rel="stylesheet"> -->
+
+    <!-- Custom CSS -->
+    <link href="{% static 'stud_assess/css/simple-sidebar.css' %}" rel="stylesheet">
+
+    <!-- jQuery -->
+    <script src="{% static 'stud_assess/js/jquery.js' %}"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="{% static 'stud_assess/js/bootstrap.min.js' %}"></script>
 </head>
 
 <body>
-    <h2 style="text-align:center;"> Welcome to the Student Assessment Portal!</h2>
-    <div class="login-page">
-         <h3> Teacher's Login :</h3>
-        <div class="form">
-            <form class="register-form">
-                  <input type="text" placeholder="name"/>
-                  <input type="password" placeholder="password"/>
-                  <input type="text" placeholder="email address"/>
-                  <button>create</button>
-                  <p class="message">Already registered? <a href="#">Sign In</a></p>
-            </form>
 
-            <form class="login-form" method="post" action="{% url 'login' %}">
-                {% csrf_token %}
-                <input type="text" placeholder="username"/>
-                <input type="password" placeholder="password"/>
-                <button>login</button>
-                <input type="hidden" name="next" value="{{ next }}" />
+    {% if is_teacher %}
+	<div class="container">
+    	<div class="row">
+	    	<!-- <h2 style="text-align: center; color: blue">Welcome to the Portal </h2> -->
 
-                {# Assumes you setup the password_reset view in your URLconf #}
-                <p class="message"><a href="{% url 'password_reset' %}">Forgot password?</a></p>
-                <p class="message">Not registered? <a href="#">Create an account</a></p>
-            </form>
-        </div>
-    </div>
+            <div id="wrapper">
+                <!-- Sidebar -->
+                <div id="sidebar-wrapper">
+                    <ul class="sidebar-nav" style="text-align: center;">
+                        <li class="sidebar-brand" style="color: blue;"> Student's List </li>
+                        <li class="sidebar-brand">
+        					{% for student in students %}
+                            <a href="{% url 'marks' student.id %}"> {{ student.Name }}</a>
+        					{% endfor %}
+                        </li>
+                    </ul>
+                </div>
+                <!-- /#sidebar-wrapper -->
 
-    <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
-    {% load static %}
-    <script src="{% static "stud_assess/js/index.js" %}"></script>
+                <!-- Page Content -->
+                <div id="page-content-wrapper">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                {% block graphs %}
+                                {% endblock %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- /#page-content-wrapper -->
+            </div>
+            <!-- /#wrapper -->
+
+    	</div>
+	</div>
+    {% endif %}
+
+    {% if is_student %}
+    <h1>user is a student</h1>
+
+    {% endif %}
 </body>
 
 {% endblock %}

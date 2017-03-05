@@ -1,0 +1,76 @@
+{% load staticfiles %}
+
+<html>
+<head>
+	<meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, shrink-to-fit=no, initial-scale=1">
+	<title>Assessment</title>
+
+	<!-- Core CSS - Include with every page -->
+	<link href="{% static 'stud_assess/css/bootstrap.min.css' %}" rel="stylesheet">
+
+    <style>
+        body{
+            background-image:url({% static 'stud_assess/bg_base.jpg' %});
+            background-repeat:no-repeat;
+            background-size:cover;
+        }
+    </style>
+
+    <script src = "{% static 'stud_assess/js/jquery.min.js' %}"></script>
+    <script src = "{% static 'stud_assess/js/bootstrap.min.js' %}"></script>
+
+</head>
+
+<body>
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <p class="navbar-brand" style="color: blue;">
+                    <img src="{% static 'stud_assess/1.png' %}" style="float:left;width:50px;height:46px;">
+                    Welcome to the Student Assessment Portal
+                </p>
+            </div>
+
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                        Account<span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li>
+                                <a href="{% url 'home' %}">Home</a>
+                            </li>
+                            <li class="divider"></li>
+                            <li>
+                                <a href="{% url 'login' %}">Logout</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    {% block login %}
+    {% endblock %}
+
+    {% block home %}
+    {% endblock %}
+
+
+    <!-- Core Scripts - Include with every page -->
+  
+    
+  
+
+</body>
+
+</html>
